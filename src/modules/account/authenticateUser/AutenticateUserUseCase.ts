@@ -17,13 +17,13 @@ export class AutenticateUserUseCase {
     })
 
     if(!user) {
-      throw new Error("Username ou senha inválida");
+      throw new Error("Usuário ou senha inválidos");
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if(!passwordMatch) {
-      throw new Error("Username ou senha inválida");
+      throw new Error("Usuário ou senha inválidos");
     }
 
     //Gerar token
