@@ -9,25 +9,15 @@ import { CreateUserController } from "./modules/user/useCases/createUser/CreateU
 
 const routes = Router();
 
-const createUserController = new CreateUserController();
-const autenticateUserController = new AutenticateUserController();
+routes.post("/user", new CreateUserController().handle);
+routes.post('/authenticate', new AutenticateUserController().handle);
 
-const createBolaoController = new CreateBolaoController();
-const signInBolaoController = new SignInBolaoController();
+routes.post('/bolao', new CreateBolaoController().handle)
+routes.post('/sign-in-bolao', new SignInBolaoController().handle);
 
-const createGameController = new CreateGameController();
+routes.post('/create-game', new CreateGameController().handle);
 
-const createTeamsController = new CreateTeamsController();
-
-routes.post("/user", createUserController.handle);
-routes.post('/authenticate', autenticateUserController.handle);
-
-routes.post('/bolao', createBolaoController.handle)
-routes.post('/sign-in-bolao', signInBolaoController.handle);
-
-routes.post('/create-game', createGameController.handle);
-
-routes.post('/create-teams', createTeamsController.handle)
+routes.post('/create-teams', new CreateTeamsController().handle)
 
 routes.get('/games-by-user/:idUser', new FindGamesByUserController().handle)
 
