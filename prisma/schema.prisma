@@ -7,11 +7,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(uuid())
-  name     String
-  username String @unique
-  password String
+model users {
+  id          String        @id @default(uuid())
+  name        String
+  username    String        @unique
+  password    String
+  created_at  DateTime      @default(now())
+  bolao_users bolao_users[]
+  games       games[]
+}
 
-  @@map("user")
+model bolao {
+  id          String        @id @default(uuid())
+  name        String
+  type        String        @db.VarChar
+  created_at  DateTime      @default(now())
+  bolao_users bolao_users[]
+}
+
+model bolao_users {
+  id       String @id @default(uuid())
+  id_user  String
+  id_bolao String
+  bolao    bolao  @relation(fields: [id_bolao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_bolao")
+  users    users  @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_user")
+}
+
+model games {
+  id                                 String   @id @default(uuid())
+  id_user                            String
+  date                               DateTime @db.Timestamp(6)
+  stadium                            String   @db.VarChar
+  group_team                         String?  @db.VarChar
+  home_score                         BigInt?
+  outside_score                      BigInt?
+  id_home_team                       String?
+  id_outside_team                    String?
+  step                               String
+  teams_games_id_home_teamToteams    teams?   @relation("games_id_home_teamToteams", fields: [id_home_team], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_home_team")
+  teams_games_id_outside_teamToteams teams?   @relation("games_id_outside_teamToteams", fields: [id_outside_team], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_outside_team")
+  users                              users?   @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_user")
+}
+
+model teams {
+  id                                 String  @id
+  name                               String  @db.VarChar
+  group_team                         String  @db.VarChar
+  urlflag                            String
+  games_games_id_home_teamToteams    games[] @relation("games_id_home_teamToteams")
+  games_games_id_outside_teamToteams games[] @relation("games_id_outside_teamToteams")
 }

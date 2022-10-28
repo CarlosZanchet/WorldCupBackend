@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "games" ALTER COLUMN "step" SET DATA TYPE TEXT;

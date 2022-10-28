@@ -21,7 +21,7 @@ interface IAuthenticateUser {
 export class AutenticateUserUseCase {
   async execute({ username, password }: IAuthenticateUser): Promise<ITokenDto> {
 
-    const user = await prisma.user.findFirst({
+    const user = await prisma.users.findFirst({
       where: {
         username
       }
