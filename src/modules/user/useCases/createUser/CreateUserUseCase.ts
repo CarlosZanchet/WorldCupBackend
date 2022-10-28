@@ -3,13 +3,12 @@ import { prisma } from "../../../../database/prismaClient";
 
 interface ICreateUser {
   name: string;
-  lastname: string;
   username: string;
   password: string;
 }
 
 export class CreateUserUseCase {
-  async execute({ name, lastname, username, password }: ICreateUser) {
+  async execute({ name, username, password }: ICreateUser) {
 
     //Valida se o usuário nao está duplicado;
     const userExists = await prisma.user.findFirst({
@@ -30,7 +29,6 @@ export class CreateUserUseCase {
     await prisma.user.create({
       data: {
         name,
-        lastname,
         username,
         password: hashPassword
       }

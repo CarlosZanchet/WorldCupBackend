@@ -2,13 +2,24 @@ import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma } from "../../../database/prismaClient";
 
+interface User {
+  id: string
+  name: string
+  username: string
+}
+
+interface ITokenDto {
+  token: string;
+  user: User;
+}
+
 interface IAuthenticateUser {
   username: string;
   password: string;
 }
 
 export class AutenticateUserUseCase {
-  async execute({ username, password }: IAuthenticateUser) {
+  async execute({ username, password }: IAuthenticateUser): Promise<ITokenDto> {
 
     const user = await prisma.user.findFirst({
       where: {
@@ -32,7 +43,9 @@ export class AutenticateUserUseCase {
       expiresIn: "1d"
     });
 
-    return token;
+    const tokenDto: ITokenDto = {token: token, user: user}
+
+    return tokenDto;
 
   }
 }
