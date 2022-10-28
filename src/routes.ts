@@ -9,16 +9,20 @@ import { CreateUserController } from "./modules/user/useCases/createUser/CreateU
 
 const routes = Router();
 
+//USER AND AUTHENTICATION
 routes.post("/user", new CreateUserController().handle);
 routes.post('/authenticate', new AutenticateUserController().handle);
 
+//BOLAO
 routes.post('/bolao', new CreateBolaoController().handle)
 routes.post('/sign-in-bolao', new SignInBolaoController().handle);
 
+//GAME
 routes.post('/create-game', new CreateGameController().handle);
+routes.get('/games-by-user/:idUser', new FindGamesByUserController().handle)
 
+//TEAMS
 routes.post('/create-teams', new CreateTeamsController().handle)
 
-routes.get('/games-by-user/:idUser', new FindGamesByUserController().handle)
 
 export { routes }
