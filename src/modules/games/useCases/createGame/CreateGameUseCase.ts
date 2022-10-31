@@ -6,28 +6,29 @@ interface ICreateGame {
 }
 
 export class CreateGameUseCase {
-  async execute({ idUser }: ICreateGame) {
+  async execute() {
 
     const findAllGameUseCase = new FindAllGameUseCase();
 
+
+    //BUSCA TODOS OS JOGOS PARA ADICIONAR NO USUARIO
     const allGames = await findAllGameUseCase.execute();
 
-    const firstGame = allGames[0];
-
-    const { date, stadium, group, homeScore, homeTeam, outsideScore, outsideTeam, step } = firstGame;
-
-    const result = prisma.games.create({
-      data: {
-        id_user: idUser, 
-        date,
-        stadium,
-        group_team: group,
-        home_score: homeScore,
-        id_home_team: homeTeam?.id,
-        outside_score: outsideScore,
-        id_outside_team: outsideTeam?.id,
-        step
+    const allGamesDb = allGames.map(game => {
+      return {
+          date: game.date,
+          stadium: game.stadium,
+          group_team: game.group,
+          home_score: game.homeScore,
+          outside_score: game.outsideScore, 
+          id_home_team: game.homeTeam?.id,
+          id_outside_team: game.outsideTeam?.id, 
+          step: game.step
       }
+    })
+
+    const result = await prisma.games.createMany({
+      data: allGamesDb
     })
 
     return result;

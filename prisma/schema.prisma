@@ -14,7 +14,7 @@ model users {
   password    String
   created_at  DateTime      @default(now())
   bolao_users bolao_users[]
-  games       games[]
+  results     results[]
 }
 
 model bolao {
@@ -34,26 +34,35 @@ model bolao_users {
 }
 
 model games {
-  id                                 String   @id @default(uuid())
-  id_user                            String
-  date                               DateTime @db.Timestamp(6)
-  stadium                            String   @db.VarChar
-  group_team                         String?  @db.VarChar
-  home_score                         BigInt?
-  outside_score                      BigInt?
-  id_home_team                       String?
-  id_outside_team                    String?
-  step                               String
-  teams_games_id_home_teamToteams    teams?   @relation("games_id_home_teamToteams", fields: [id_home_team], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_home_team")
-  teams_games_id_outside_teamToteams teams?   @relation("games_id_outside_teamToteams", fields: [id_outside_team], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_outside_team")
-  users                              users?   @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_user")
+  id              String    @id @default(uuid())
+  date            DateTime  @db.Timestamp(6)
+  stadium         String    @db.VarChar
+  group_team      String?   @db.VarChar
+  home_score      BigInt?
+  outside_score   BigInt?
+  id_home_team    String?
+  id_outside_team String?
+  step            String
+  home_team       teams?    @relation("home_team", fields: [id_home_team], references: [id])
+  outside_team    teams?    @relation("outside_team", fields: [id_outside_team], references: [id])
+  results         results[]
+}
+
+model results {
+  id             String  @id @default(uuid())
+  home_result    String?
+  outside_result String?
+  id_game        String
+  game           games?  @relation(fields: [id_game], references: [id])
+  id_user        String
+  user           users   @relation(fields: [id_user], references: [id])
 }
 
 model teams {
-  id                                 String  @id
-  name                               String  @db.VarChar
-  group_team                         String  @db.VarChar
-  urlflag                            String
-  games_games_id_home_teamToteams    games[] @relation("games_id_home_teamToteams")
-  games_games_id_outside_teamToteams games[] @relation("games_id_outside_teamToteams")
+  id           String  @id
+  name         String  @db.VarChar
+  group_team   String  @db.VarChar
+  urlflag      String
+  home_team    games[] @relation("home_team")
+  outside_team games[] @relation("outside_team")
 }

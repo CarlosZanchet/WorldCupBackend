@@ -1,6 +1,7 @@
 import { hash } from "bcrypt";
 import { prisma } from "../../../../database/prismaClient";
 import { FindAllGameUseCase } from "../../../games/useCases/findAllGames/FindAllGameUseCase";
+import { CreateResultsUseCase } from "../../../result/useCases/createResults/CreateResultsUseCase";
 
 interface ICreateUser {
   name: string;
@@ -36,27 +37,10 @@ export class CreateUserUseCase {
       },
     });
 
-    //BUSCA TODOS OS JOGOS PARA ADICIONAR NO USUARIO
-    const allGames = await findAllGameUseCase.execute();
-
-    const allGamesDb = allGames.map(game => {
-      return {
-          id_user: user.id,
-          date: game.date,
-          stadium: game.stadium,
-          group_team: game.group,
-          home_score: game.homeScore,
-          outside_score: game.outsideScore, 
-          id_home_team: game.homeTeam?.id,
-          id_outside_team: game.outsideTeam?.id, 
-          step: game.step
-      }
-    })
-
-    //SALVA TODOS OS JOGOS DO USUARIO
-    await prisma.games.createMany({
-      data: allGamesDb
-    })
+    
+    //CRIA OS RESULTADOS DO USUARIO
+    const createResultsUseCase = new CreateResultsUseCase();
+    await createResultsUseCase.execute(user.id)
 
     return user;
   }
