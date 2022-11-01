@@ -15,8 +15,8 @@ export async function ensureAuthenticateClient(request: Request, response: Respo
   const [, token] = authHeader.split(" ")
 
   try {
-    const ola = verify(token, 'd9452db98c065e8964ebd1c489ad3be1');
-    console.log(ola)
+    verify(token, 'd9452db98c065e8964ebd1c489ad3be1');
+    
     return next();
   } catch (err) {
     return response.status(401).json({

@@ -6,6 +6,8 @@ export class SignInBolaoController {
 
     const { idUser, idBolao } = request.body;
 
+    console.log(idUser, idBolao);
+
     const signInBolaoUseCase = new SignInBolaoUseCase();
 
     const result = await signInBolaoUseCase.execute({ idUser, idBolao });

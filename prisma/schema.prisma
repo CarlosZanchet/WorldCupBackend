@@ -15,14 +15,18 @@ model users {
   created_at  DateTime      @default(now())
   bolao_users bolao_users[]
   results     results[]
+  bolao       bolao[]
 }
 
 model bolao {
   id          String        @id @default(uuid())
   name        String
   type        String        @db.VarChar
+  url_image   String
   created_at  DateTime      @default(now())
-  bolao_users bolao_users[]
+  user_create users         @relation(fields: [id_user], references: [id])
+  users       bolao_users[]
+  id_user     String
 }
 
 model bolao_users {
@@ -38,8 +42,8 @@ model games {
   date            DateTime  @db.Timestamp(6)
   stadium         String    @db.VarChar
   group_team      String?   @db.VarChar
-  home_score      BigInt?
-  outside_score   BigInt?
+  home_score      Int?
+  outside_score   Int?
   id_home_team    String?
   id_outside_team String?
   step            String

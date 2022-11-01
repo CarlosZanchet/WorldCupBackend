@@ -40,7 +40,7 @@ export class AutenticateUserUseCase {
     //Gerar token
     const token = sign({ username }, "d9452db98c065e8964ebd1c489ad3be1", {
       subject: user.id,
-      expiresIn: "1d"
+      expiresIn: "1d" // 30seg
     });
 
     const tokenDto: ITokenDto = {token: token, user: user}
