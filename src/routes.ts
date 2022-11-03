@@ -7,7 +7,8 @@ import { FindBolaoByUserController } from "./modules/bolao/useCases/findByUser/F
 import { RequestSignInController } from "./modules/bolao/useCases/requestSignIn/RequestSignInController";
 import { SignInBolaoController } from "./modules/bolao/useCases/signInBolao/SignInBolaoController";
 import { CreateGameController } from "./modules/games/useCases/createGame/CreateGameController";
-import { FindRequestByUserController } from "./modules/request/useCase/findByUser/FindRequestByUserController";
+import { FindRequestByUserController } from "./modules/request/useCase/findByAdministrator/FindRequestByUserController";
+import { FindRequestByUserRequestController } from "./modules/request/useCase/findByRequest/FindRequestByUserRequestController";
 import { RequestAcceptController } from "./modules/request/useCase/requestAccept/RequestAcceptController";
 import { RequestDenyController } from "./modules/request/useCase/requestDeny/RequestDenyController";
 import { FindResultsByUserController } from "./modules/result/useCases/findByUser/FindResultsByUserController";
@@ -44,5 +45,6 @@ routes.get('/results-by-user', ensureAuthenticateClient,  new FindResultsByUserC
 routes.get('/request-by-user/:idUser', ensureAuthenticateClient, new FindRequestByUserController().handle)
 routes.get('/request-deny/:idRequest', ensureAuthenticateClient, new RequestDenyController().handle)
 routes.get('/request-accept/:idRequest', ensureAuthenticateClient, new RequestAcceptController().handle)
+routes.get('/requests-by-user-request/:idUser', ensureAuthenticateClient, new FindRequestByUserRequestController().handle)
 
 export { routes }
