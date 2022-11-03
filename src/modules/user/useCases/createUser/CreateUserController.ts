@@ -3,7 +3,7 @@ import { CreateUserUseCase } from "./CreateUserUseCase";
 
 export class CreateUserController {
   async handle(request: Request, response: Response) {
-    const { name, lastname, username, password } = request.body;
+    const { name, username, password } = request.body;
 
     const createUserUseCase = new CreateUserUseCase();
 

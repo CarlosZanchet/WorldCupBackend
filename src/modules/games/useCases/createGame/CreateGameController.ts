@@ -8,8 +8,6 @@ export class CreateGameController {
 
     const result = await createGameUseCase.execute()
 
-    console.log(result)
-
     response.json(result)
   }
 }

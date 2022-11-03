@@ -16,6 +16,7 @@ model users {
   bolao_users bolao_users[]
   results     results[]
   bolao       bolao[]
+  requests    requests[]
 }
 
 model bolao {
@@ -27,6 +28,7 @@ model bolao {
   user_create users         @relation(fields: [id_user], references: [id])
   users       bolao_users[]
   id_user     String
+  requests    requests[]
 }
 
 model bolao_users {
@@ -69,4 +71,13 @@ model teams {
   urlflag      String
   home_team    games[] @relation("home_team")
   outside_team games[] @relation("outside_team")
+}
+
+model requests {
+  id               String @id @default(uuid())
+  id_user_request  String
+  user_request     users  @relation(fields: [id_user_request], references: [id])
+  id_bolao         String
+  bolao            bolao  @relation(fields: [id_bolao], references: [id])
+  id_administrator String
 }

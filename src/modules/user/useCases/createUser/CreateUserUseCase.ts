@@ -11,14 +11,11 @@ interface ICreateUser {
 
 export class CreateUserUseCase {
   async execute({ name, username, password }: ICreateUser) {
-    const findAllGameUseCase = new FindAllGameUseCase();
 
     //Valida se o usuário nao está duplicado;
     const userExists = await prisma.users.findFirst({
       where: {
-        username: {
-          mode: "insensitive",
-        },
+        username
       },
     });
 
