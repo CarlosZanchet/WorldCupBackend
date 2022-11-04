@@ -81,3 +81,10 @@ model requests {
   bolao            bolao  @relation(fields: [id_bolao], references: [id])
   id_administrator String
 }
+
+model steps {
+  id     String  @id @default(uuid())
+  name   String
+  step   Int
+  active Boolean
+}

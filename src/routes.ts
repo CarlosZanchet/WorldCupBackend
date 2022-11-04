@@ -1,4 +1,6 @@
-import { Router } from "express";
+import { steps } from "@prisma/client";
+import { request, Router } from "express";
+import { prisma } from "./database/prismaClient";
 import { ensureAuthenticateClient } from "./middlewares/ensureAuthenticateUser";
 import { AutenticateUserController } from "./modules/account/authenticateUser/AutenticateUserController";
 import { CreateBolaoController } from "./modules/bolao/useCases/createBolao/CreateBolaoController";
@@ -13,6 +15,7 @@ import { RequestAcceptController } from "./modules/request/useCase/requestAccept
 import { RequestDenyController } from "./modules/request/useCase/requestDeny/RequestDenyController";
 import { FindResultsByUserController } from "./modules/result/useCases/findByUser/FindResultsByUserController";
 import { SaveResultController } from "./modules/result/useCases/saveResult/SaveResultController";
+import { FindStepActiveController } from "./modules/steps/useCases/findStepActive/FindStepActiveController";
 import { CreateTeamsController } from "./modules/teams/useCases/createTeams/CreateTeamsController";
 import { CreateUserController } from "./modules/user/useCases/createUser/CreateUserController";
 import { FindUserByIdController } from "./modules/user/useCases/findById/FindUserByIdController";
@@ -46,5 +49,62 @@ routes.get('/request-by-user/:idUser', ensureAuthenticateClient, new FindRequest
 routes.get('/request-deny/:idRequest', ensureAuthenticateClient, new RequestDenyController().handle)
 routes.get('/request-accept/:idRequest', ensureAuthenticateClient, new RequestAcceptController().handle)
 routes.get('/requests-by-user-request/:idUser', ensureAuthenticateClient, new FindRequestByUserRequestController().handle)
+
+
+// STEP 
+routes.get('/steps-active', ensureAuthenticateClient, new FindStepActiveController().handle)
+
+
+//CADASTRA AS STEPS
+routes.get('/steps-create', async (req, res) => {
+  const steps = [
+    {
+      step: 1,
+      active: true,
+      name: 'Primeira Rodada'
+    },
+    {
+      step: 2,
+      active: true,
+      name: 'Segunda Rodada'
+    },
+    {
+      step: 3,
+      active: true,
+      name: 'Terceira Rodada'
+    },
+    {
+      step: 4,
+      active: false,
+      name: 'Oitavas de Final'
+    },
+    {
+      step: 5,
+      active: false,
+      name: 'Quarta de Final'
+    },
+    {
+      step: 6,
+      active: false,
+      name: 'Semi Finais'
+    },
+    {
+      step: 7,
+      active: false,
+      name: 'Terceiro e Quarto'
+    },
+    {
+      step: 8,
+      active: false,
+      name: 'Final'
+    }
+  ]
+  
+  const result = await prisma.steps.createMany({
+    data: steps
+  })
+
+  return res.json(result)
+})
 
 export { routes }

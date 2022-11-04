@@ -15,7 +15,7 @@ export class SaveResultUseCase {
     const home: number = result.home_result as number;
     const outside: number = result.outside_result as number;
 
-    if(home !== undefined && outside !== undefined) {
+    if(home !== null && outside !== null) {
       const resultDb = await prisma.results.update({
         where: {
           id: result.id
