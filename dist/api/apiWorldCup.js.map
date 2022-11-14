@@ -1,1 +1,1 @@
-{"version":3,"file":"apiWorldCup.js","sourceRoot":"","sources":["../../src/api/apiWorldCup.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAA;AAEzB,MAAM,OAAO,GAAG,8DAA8D,CAAA;AAE9E,MAAM,CAAC,MAAM,WAAW,GAAG,KAAK,CAAC,MAAM,CAAC,EAAE,OAAO,EAAE,CAAC,CAAA"}
+{"version":3,"file":"apiWorldCup.js","sourceRoot":"","sources":["../../src/api/apiWorldCup.ts"],"names":[],"mappings":";;;;;;AAAA,kDAAyB;AAEzB,MAAM,OAAO,GAAG,8DAA8D,CAAA;AAEjE,QAAA,WAAW,GAAG,eAAK,CAAC,MAAM,CAAC,EAAE,OAAO,EAAE,CAAC,CAAA"}

@@ -1,10 +1,25 @@
-import { FindBolaoByUserUseCase } from "./FindBolaoByUserUseCase";
-export class FindBolaoByUserController {
-    async handle(request, response) {
-        const idUser = request.params.idUser;
-        const findBolaoByUserUseCase = new FindBolaoByUserUseCase();
-        const result = await findBolaoByUserUseCase.execute(idUser);
-        return response.json(result);
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FindBolaoByUserController = void 0;
+const FindBolaoByUserUseCase_1 = require("./FindBolaoByUserUseCase");
+class FindBolaoByUserController {
+    handle(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const idUser = request.params.idUser;
+            const findBolaoByUserUseCase = new FindBolaoByUserUseCase_1.FindBolaoByUserUseCase();
+            const result = yield findBolaoByUserUseCase.execute(idUser);
+            return response.json(result);
+        });
     }
 }
+exports.FindBolaoByUserController = FindBolaoByUserController;
 //# sourceMappingURL=FindBolaoByUserController.js.map

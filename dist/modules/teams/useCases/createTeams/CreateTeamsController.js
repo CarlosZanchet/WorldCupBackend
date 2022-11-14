@@ -1,9 +1,24 @@
-import { CreateTeamsUseCase } from "./CreateTeamsUseCase";
-export class CreateTeamsController {
-    async handle(request, response) {
-        const createTeamsUsecase = new CreateTeamsUseCase();
-        const result = await createTeamsUsecase.execute();
-        return response.json(result);
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateTeamsController = void 0;
+const CreateTeamsUseCase_1 = require("./CreateTeamsUseCase");
+class CreateTeamsController {
+    handle(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const createTeamsUsecase = new CreateTeamsUseCase_1.CreateTeamsUseCase();
+            const result = yield createTeamsUsecase.execute();
+            return response.json(result);
+        });
     }
 }
+exports.CreateTeamsController = CreateTeamsController;
 //# sourceMappingURL=CreateTeamsController.js.map

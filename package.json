@@ -1,12 +1,12 @@
 {
-  "name": "WorldCupBackend",
-  "version": "1.0.0",
+  "name": "worldcupbackend",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_module src/server.ts",
-    "build": "tsc"
+    "build": "tsc --build"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",

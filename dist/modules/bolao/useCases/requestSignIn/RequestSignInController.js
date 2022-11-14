@@ -1,10 +1,25 @@
-import { RequestSignInUseCase } from "./RequestSignInUseCase";
-export class RequestSignInController {
-    async handle(request, response) {
-        const { idUser, idBolao } = request.body;
-        const requestSignInUseCase = new RequestSignInUseCase();
-        const result = await requestSignInUseCase.execute({ idUser, idBolao });
-        return response.json(result);
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RequestSignInController = void 0;
+const RequestSignInUseCase_1 = require("./RequestSignInUseCase");
+class RequestSignInController {
+    handle(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idUser, idBolao } = request.body;
+            const requestSignInUseCase = new RequestSignInUseCase_1.RequestSignInUseCase();
+            const result = yield requestSignInUseCase.execute({ idUser, idBolao });
+            return response.json(result);
+        });
     }
 }
+exports.RequestSignInController = RequestSignInController;
 //# sourceMappingURL=RequestSignInController.js.map
